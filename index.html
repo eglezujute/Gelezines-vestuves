@@ -97,7 +97,7 @@ img{
 
 <!-- START -->
 <div id="start">
-    <h1>🏗️ GELEŽINĖS SANTUOKOS tinkamumo eksplotuoti TESTAS</h1>
+    <h1>🏗️ Geležinės vestuvės? Atlikite techninę apžiūrą</h1>
     <p>Objektas: Neringa + Tadas</p>
     <p>Ekspertizės Nr.: 2026/06/13</p>
     <button class="next" onclick="startTest()">TIKRINTI TINKAMUMĄ</button>
@@ -109,13 +109,13 @@ img{
 
     <div class="question">Ar meilės variklis veikia tvarkingai (t.y. neužkalęs)?</div>
     <button class="yes" onclick="answer(1,'q1',1,this)">Variklis neužkalęs</button>
-    <button class="no" onclick="answer(1,'q1',0,this)">Varikliui kapūt</button>
+    <button class="no" onclick="answer(1,'q1',0,this)">Varikliui KAPŪT</button>
 
     <div class="question">Ar kartais norite vienas kitam trinktelėti per priekinius žibintus?</div>
     <button class="yes" onclick="answer(1,'q2',1,this)">Ne tik norim, bet ir trinktelnam</button>
     <button class="no" onclick="answer(1,'q2',0,this)">NIEKADA - net tokios minties nebuvo</button>
 
-    <div class="question">Ar namuose dūmingumas neviršina leistinos ribos ir atitinka reikalavimus (2 pykčio protrūkiai per savaitę)?</div>
+    <div class="question">Ar namuose dūmingumas neviršina leistinos ribos ir atitinka reikalavimus (t.y. iki 2 pykčio protrūkių per savaitę)?</div>
     <button class="yes" onclick="answer(1,'q3',1,this)">Kartais net ir mažesnis dūmingumas</button>
     <button class="no" onclick="answer(1,'q3',0,this)">Norma VIRŠINAMA</button>
 
@@ -124,53 +124,53 @@ img{
 
 <!-- STAGE 2 -->
 <div id="stage2" class="hidden">
-    <h2>2 ETAPAS</h2>
+    <h2>2 PATIKROS ETAPAS</h2>
 
-    <div class="question">Ar keliaujate kartu?</div>
-    <button class="yes" onclick="answer(2,'q1',1,this)">TAIP</button>
-    <button class="no" onclick="answer(2,'q1',0,this)">NE</button>
+    <div class="question">Mes, Neringa ir Tadas, pasižadame, kad gebėsime nuvykti į tolesnę kelionę, galimai net ne Europoje (pagal susitarimą)</div>
+    <button class="yes" onclick="answer(2,'q1',1,this)">DRĄSIAI</button>
+    <button class="no" onclick="answer(2,'q1',0,this)">Nieko nebus</button>
 
-    <div class="question">Ar perkate dovanas?</div>
-    <button class="yes" onclick="answer(2,'q2',1,this)">TAIP</button>
-    <button class="no" onclick="answer(2,'q2',0,this)">NE</button>
+    <div class="question">Mes, Neringa ir Tadas, pasižadame, kad bent kartą per mėnesį vienas kitam parodysime gerumo proveržius</div>
+    <button class="yes" onclick="answer(2,'q2',1,this)">EASY, jau dabar praktikuojam šitą</button>
+    <button class="no" onclick="answer(2,'q2',0,this)">Neprisivaigstam, gerai?</button>
 
-    <div class="question">Ar klausotės vienas kito?</div>
-    <button class="yes" onclick="answer(2,'q3',1,this)">TAIP</button>
-    <button class="no" onclick="answer(2,'q3',0,this)">NE</button>
+    <div class="question">Mes, Neringa ir Tadas, pasižadame, kad profesionaliai apsimesime, jog vienas kito klausomės, kai kažkuris kalbėsime apie romantinius serialus / automobilius</div>
+    <button class="yes" onclick="answer(2,'q3',1,this)">Nu bandom...</button>
+    <button class="no" onclick="answer(2,'q3',0,this)">Neįmanoma</button>
 
     <button class="next" onclick="check(2)">Tikrinti</button>
 </div>
 
 <!-- STAGE 3 -->
 <div id="stage3" class="hidden">
-    <h2>3 ETAPAS</h2>
+    <h2>3 PATIKROS ETAPAS</h2>
 
-    <div class="question">Ar išgyvenate IKEA?</div>
-    <button class="yes" onclick="answer(3,'q1',1,this)">TAIP</button>
-    <button class="no" onclick="answer(3,'q1',0,this)">NE</button>
+    <div class="question">Ar važiuoklė išlaiko ilgalaikes vibracijas: giminių baliukus, maisto gaminimo testus, dramas-melodramas be rimtų gedimų?</div>
+    <button class="yes" onclick="answer(3,'q1',1,this)">Važiuoklė paturbinta, viską praeina</button>
+    <button class="no" onclick="answer(3,'q1',0,this)">Važiuoklei jau irgi KAPŪT</button>
 
-    <div class="question">Ar greitai pasirenkate filmą?</div>
-    <button class="yes" onclick="answer(3,'q2',1,this)">TAIP</button>
-    <button class="no" onclick="answer(3,'q2',0,this)">NE</button>
+    <div class="question">Ar gedimai vis dar išsprendžiami be būtinybės kviesti „techninę pagalbą“ (draugus / mamą / chatgpt)?</div>
+    <button class="yes" onclick="answer(3,'q2',1,this)">Dažniausia</button>
+    <button class="no" onclick="answer(3,'q2',0,this)">Techninė pagalba būtina visada</button>
 
-    <div class="question">Ar einate miegoti kartu?</div>
-    <button class="yes" onclick="answer(3,'q3',1,this)">TAIP</button>
-    <button class="no" onclick="answer(3,'q3',0,this)">NE</button>
+    <div class="question">Ar patvirtinate, kad garantija galioja visam gyvenimui, net jei kartais atsiranda keisti garsai po kapotu?</div>
+    <button class="yes" onclick="answer(3,'q3',1,this)">Tvirtiname</button>
+    <button class="no" onclick="answer(3,'q3',0,this)">Nea</button>
 
     <button class="next" onclick="check(3)">PABAIGA</button>
 </div>
 
 <!-- FAIL -->
 <div id="fail" class="hidden">
-    <h2 class="warn">⚠️ WOW WOW WOW</h2>
-    <p>Kažkas nesusiskaičiavo 😄</p>
-    <button class="next" onclick="restartStage()">Kartoti etapą</button>
+    <h2 class="warn">⚠️ WOW WOW WOW, chebra, nepraėjot techo... Kas vyksta?</h2>
+    <p>Kad pakartotumėt patikros etapą teks vienas kitam sumokėti po diskę.</p>
+    <button class="next" onclick="restartStage()">Pasižadame sumokėti ir kartojame patikrą</button>
 </div>
 
 <!-- FINAL -->
 <div id="final" class="hidden">
-    <h1>🏆 GELEŽINĖ SANTUOKA</h1>
-    <p>Testas įveiktas!</p>
+    <h1>🏆 Toliau eksplotuoti tinkami.</h1>
+    <p>Suteiktas statusas: GELEŽINĖ SANTUOKA</p>
 
     <img src="https://cdn.corenexis.com/f/0XpvC6LoAHn.jpeg">
 
@@ -210,7 +210,7 @@ function check(stage){
     let data = answers[stage];
 
     if(Object.keys(data).length < 3){
-        alert("Atsakykite į visus klausimus 😄");
+        alert("Nu kur? Atsakykite į visus patikros klausimus...");
         return;
     }
 
