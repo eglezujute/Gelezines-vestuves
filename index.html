@@ -29,30 +29,53 @@ body{
 
 .hidden{display:none;}
 
-.question{margin:18px 0 6px;font-size:18px;}
+h1,h2{margin-top:0;}
 
+.question{
+    margin:18px 0 6px;
+    font-size:18px;
+}
+
+/* BUTTON BASE */
 button{
     margin:6px;
     padding:10px 16px;
-    border:none;
     border-radius:10px;
     cursor:pointer;
     font-weight:bold;
+    border:2px solid transparent;
+    transition:0.2s;
 }
 
-/* spalvos */
-.yes{background:#2ecc71;color:white;}
-.no{background:#e74c3c;color:white;}
-.next{background:#f2c94c;color:black;}
+/* DEFAULT (balti su apvadu) */
+.yes, .no{
+    background:white;
+    color:black;
+}
 
-/* highlight */
-.active-yes{
-    background:#27ae60 !important;
+/* SELECTED YES */
+.selected-yes{
+    background:#2ecc71 !important;
+    color:white !important;
+    border-color:#2ecc71;
     transform:scale(1.05);
 }
-.active-no{
-    background:#c0392b !important;
+
+/* SELECTED NO */
+.selected-no{
+    background:#e74c3c !important;
+    color:white !important;
+    border-color:#e74c3c;
     transform:scale(1.05);
+}
+
+/* TIKRINTI MYGTUKAS – VISADA NAUJOJE EILUTĖJE */
+.next{
+    display:block;
+    margin:25px auto 0 auto;
+    background:#f2c94c;
+    color:black;
+    border:none;
 }
 
 .warn{
@@ -66,19 +89,10 @@ img{
     border-radius:12px;
     margin-top:15px;
 }
-
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    pointer-events:none;
-}
 </style>
 </head>
 
 <body>
-
-<canvas id="confetti"></canvas>
 
 <div class="card">
 
@@ -98,11 +112,11 @@ canvas{
     <button class="yes" onclick="answer(1,'q1',1,this)">TAIP</button>
     <button class="no" onclick="answer(1,'q1',0,this)">NE</button>
 
-    <div class="question">Ar kartais norite keptuve?</div>
+    <div class="question">Ar kartais pykstatės?</div>
     <button class="yes" onclick="answer(1,'q2',1,this)">TAIP</button>
     <button class="no" onclick="answer(1,'q2',0,this)">NE</button>
 
-    <div class="question">Ar valgote kartu?</div>
+    <div class="question">Ar vis tiek gyvenat kartu?</div>
     <button class="yes" onclick="answer(1,'q3',1,this)">TAIP</button>
     <button class="no" onclick="answer(1,'q3',0,this)">NE</button>
 
@@ -117,7 +131,7 @@ canvas{
     <button class="yes" onclick="answer(2,'q1',1,this)">TAIP</button>
     <button class="no" onclick="answer(2,'q1',0,this)">NE</button>
 
-    <div class="question">Ar perkate vienas kitam dovanas?</div>
+    <div class="question">Ar perkate dovanas?</div>
     <button class="yes" onclick="answer(2,'q2',1,this)">TAIP</button>
     <button class="no" onclick="answer(2,'q2',0,this)">NE</button>
 
@@ -136,11 +150,11 @@ canvas{
     <button class="yes" onclick="answer(3,'q1',1,this)">TAIP</button>
     <button class="no" onclick="answer(3,'q1',0,this)">NE</button>
 
-    <div class="question">Ar greitai pasirenkate filmą?</div>
+    <div class="question">Ar pasirenkate filmą greitai?</div>
     <button class="yes" onclick="answer(3,'q2',1,this)">TAIP</button>
     <button class="no" onclick="answer(3,'q2',0,this)">NE</button>
 
-    <div class="question">Ar miegate kartu?</div>
+    <div class="question">Ar einate miegoti kartu?</div>
     <button class="yes" onclick="answer(3,'q3',1,this)">TAIP</button>
     <button class="no" onclick="answer(3,'q3',0,this)">NE</button>
 
@@ -150,7 +164,7 @@ canvas{
 <!-- FAIL -->
 <div id="fail" class="hidden">
     <h2 class="warn">⚠️ WOW WOW WOW</h2>
-    <p>Nepraėjo testas 😄</p>
+    <p>Nepavyko 😄</p>
     <button class="next" onclick="restart()">Kartoti</button>
 </div>
 
@@ -161,7 +175,7 @@ canvas{
 
     <img src="https://cdn.corenexis.com/f/YlnsU1ApBlZ.jpg">
 
-    <h2>❤️ Sveikinimai!</h2>
+    <h2>❤️ Sveikiname Neringa ir Tadas!</h2>
 </div>
 
 </div>
@@ -176,19 +190,20 @@ function startTest(){
 }
 
 function answer(stage,q,val,btn){
+
     answers[stage][q] = val;
 
     let parent = btn.parentElement;
     let buttons = parent.querySelectorAll("button");
 
     buttons.forEach(b=>{
-        b.classList.remove("active-yes","active-no");
+        b.classList.remove("selected-yes","selected-no");
     });
 
     if(val===1){
-        btn.classList.add("active-yes");
+        btn.classList.add("selected-yes");
     } else {
-        btn.classList.add("active-no");
+        btn.classList.add("selected-no");
     }
 }
 
