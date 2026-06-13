@@ -95,8 +95,9 @@ canvas {
 <div id="start">
     <h1>🏗️ GELEŽINĖS SANTUOKOS TESTAS</h1>
     <p>Neringa + Tadas</p>
-    <button class="next" onclick="showStage(1)">Pradėti</button>
-</div>
+   <button class="next" onclick="document.getElementById('start').classList.add('hidden'); document.getElementById('stage1').classList.remove('hidden');">
+Pradėti
+</button>
 
 <!-- FAIL -->
 <div id="fail" class="hidden">
