@@ -3,196 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geležinės vestuvės - Ekspertizė</title>
+<title>Geležinės santuokos testas</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-        overflow-x: hidden;
-    }
+body {
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#1e1e1e,#3a3a3a);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
 
-    .card {
-        max-width: 850px;
-        width: 100%;
-        background: rgba(255,255,255,0.08);
-        padding: 35px;
-        border-radius: 20px;
-        text-align: center;
-        position: relative;
-    }
+.card {
+    max-width:850px;
+    width:100%;
+    background:rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
 
-    h1, h2 {
-        margin-top: 0;
-    }
+button {
+    margin:10px;
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
 
-    button {
-        margin-top: 20px;
-        padding: 12px 22px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        background: #f2c94c;
-        font-weight: bold;
-    }
+.yes { background:#2ecc71; color:white; }
+.no { background:#e74c3c; color:white; }
+.next { background:#f2c94c; }
 
-    button:hover {
-        transform: scale(1.05);
-    }
+.hidden { display:none; }
 
-    .hidden { display: none; }
+.question {
+    margin:20px 0;
+    font-size:18px;
+}
 
-    .section { animation: fade .6s ease; }
+.warn {
+    color:#f2c94c;
+    font-size:20px;
+    margin:20px 0;
+}
 
-    @keyframes fade {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    ul {
-        text-align: left;
-        max-width: 600px;
-        margin: 20px auto;
-        line-height: 1.7;
-    }
-
-    img.photo {
-        width: 100%;
-        max-width: 500px;
-        border-radius: 14px;
-        margin: 15px auto;
-        display: block;
-    }
-
-    .stamp {
-        font-size: 2rem;
-        color: #f2c94c;
-        margin-top: 20px;
-        font-weight: bold;
-    }
-
-    canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-    }
+canvas {
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
 </style>
 </head>
 
 <body>
 
 <canvas id="confetti"></canvas>
-<audio id="stampSound" src="https://www.myinstants.com/en/instant/vine-boom-sound-effect-full-16880/?utm_source=copy&utm_medium=share"></audio>
 
 <div class="card">
 
-<!-- STEP 1 -->
-<div id="step1" class="section">
-    <h1>🏗️ Santuokos ekspertizė</h1>
-    <p><strong>Objektas:</strong> Neringa + Tadas</p>
-    <p><strong>Ekspertizės Nr.:</strong> 2020-06-13</p>
-
-    <button onclick="next(1,2)">Pradėti</button>
+<!-- START -->
+<div id="start">
+    <h1>🏗️ GELEŽINĖS SANTUOKOS TESTAS</h1>
+    <p>Neringa + Tadas</p>
+    <button class="next" onclick="showStage(1)">Pradėti testą</button>
 </div>
 
-<!-- STEP 2 -->
-<div id="step2" class="section hidden">
-    <h2>Pirminė apžiūra</h2>
-
-    <img class="photo" src="https://cdn.corenexis.com/f/0ZFo0l1XDB3.jpg" alt="Foto 1">
-
-    <ul>
-        <li>✅ Konstrukcija stabili</li>
-        <li>✅ Mazgai neatsilaisvinę</li>
-        <li>✅ Humoras veikia</li>
-    </ul>
-
-    <button onclick="next(2,3)">Toliau</button>
+<!-- RESULT FAIL -->
+<div id="fail" class="hidden">
+    <h2 class="warn">⚠️ WOW WOW WOW… kažką sumaišėt</h2>
+    <p>Reikia papildomo „kyšio“ ir pakartoti patikrą 😄</p>
+    <button class="next" onclick="restart()">Kartoti etapą</button>
 </div>
 
-<!-- STEP 3 -->
-<div id="step3" class="section hidden">
-    <h2>Atsparumo testai</h2>
+<!-- STAGE 1 -->
+<div id="stage1" class="hidden">
+    <h2>1 ETAPAS – MEILĖ IR BUITIS</h2>
 
-    <img class="photo" src="https://cdn.corenexis.com/f/76EwrD0K5eN.jpg" alt="Foto 2">
+    <div class="question">Ar mylit vienas kitą?</div>
+    <button class="yes" onclick="answer(1,1)">TAIP</button>
+    <button class="no" onclick="answer(1,0)">NE</button>
 
-    <ul>
-        <li>☑ „Ką valgom?“ testas</li>
-        <li>☑ Kelionių testas</li>
-        <li>☑ Remonto testas</li>
-    </ul>
+    <div class="question">Ar kartais norite vienas kitam užvožti keptuve?</div>
+    <button class="yes" onclick="answer(1,1)">TAIP</button>
+    <button class="no" onclick="answer(1,0)">NE</button>
 
-    <button onclick="next(3,4)">Tęsti</button>
+    <div class="question">Ar vis tiek kartu valgote vakarienę?</div>
+    <button class="yes" onclick="answer(1,1)">TAIP</button>
+    <button class="no" onclick="answer(1,0)">NE</button>
+
+    <button class="next" onclick="checkStage(1)">Tikrinti</button>
 </div>
 
-<!-- STEP 4 -->
-<div id="step4" class="section hidden">
-    <h2>Korozijos analizė</h2>
+<!-- STAGE 2 -->
+<div id="stage2" class="hidden">
+    <h2>2 ETAPAS – PAŽADAI</h2>
 
-    <img class="photo" src="https://cdn.corenexis.com/f/YlnsU1ApBlZ.jpg" alt="Foto 3">
+    <div class="question">Pasižadu keliauti su tavimi iki pasaulio krašto?</div>
+    <button class="yes" onclick="answer(2,1)">TAIP</button>
+    <button class="no" onclick="answer(2,0)">NE</button>
 
-    <ul>
-        <li>🙄 Akių vartymas</li>
-        <li>🚪 Durų „akcentai“</li>
-        <li>🤷 „man nesvarbu“ efektas</li>
-    </ul>
+    <div class="question">Pasižadu kartą per mėnesį nupirkti tavo mėgstamą gėrimą?</div>
+    <button class="yes" onclick="answer(2,1)">TAIP</button>
+    <button class="no" onclick="answer(2,0)">NE</button>
 
-    <button onclick="next(4,5)">Išvada</button>
+    <div class="question">Pasižadu apsimesti, kad klausausi, kai kalbi apie serialus?</div>
+    <button class="yes" onclick="answer(2,1)">TAIP</button>
+    <button class="no" onclick="answer(2,0)">NE</button>
+
+    <button class="next" onclick="checkStage(2)">Tikrinti</button>
 </div>
 
-<!-- STEP 5 -->
-<div id="step5" class="section hidden">
-    <h2>Galutinė išvada</h2>
+<!-- STAGE 3 -->
+<div id="stage3" class="hidden">
+    <h2>3 ETAPAS – GELEŽIES TESTAS</h2>
 
-    <img class="photo" src="GOOGLE_DRIVE_IMAGE_4" alt="Foto 4">
+    <div class="question">Ar galite kartu išgyventi IKEA kelionę?</div>
+    <button class="yes" onclick="answer(3,1)">TAIP</button>
+    <button class="no" onclick="answer(3,0)">NE</button>
 
-    <div class="stamp">GELEŽINĖ SANTUOKA</div>
+    <div class="question">Ar galite kartu išsirinkti filmą per mažiau nei 30 min?</div>
+    <button class="yes" onclick="answer(3,1)">TAIP</button>
+    <button class="no" onclick="answer(3,0)">NE</button>
 
-    <button onclick="next(5,6); playStamp(); startConfetti();">
-        Finalas
-    </button>
+    <div class="question">Ar po visko vis tiek einate kartu miegoti?</div>
+    <button class="yes" onclick="answer(3,1)">TAIP</button>
+    <button class="no" onclick="answer(3,0)">NE</button>
+
+    <button class="next" onclick="finish()">Pabaigti testą</button>
 </div>
 
-<!-- STEP 6 -->
-<div id="step6" class="section hidden">
-    <h1>❤️ Sveikiname</h1>
+<!-- FINAL -->
+<div id="final" class="hidden">
+    <h1>🏆 GELEŽINĖ SANTUOKA</h1>
 
-    <p>
-        Kai kurios konstrukcijos laikui bėgant silpsta.
-        Jūsų – stiprėja.
-    </p>
+    <p>Testas sėkmingai įveiktas.</p>
 
-    <h2>🔥 Specialus momentas</h2>
+    <img src="https://cdn.corenexis.com/f/YlnsU1ApBlZ.jpg" style="width:100%;border-radius:15px;">
 
-    <p>Jūs abu, kuriantys savo geležinę širdį:</p>
-
-    <!-- AI / generuojamos foto vieta -->
-    <img class="photo" src="YOUR_GENERATED_IMAGE_HERE" alt="Geležinė širdis">
-
-    <p><i>(čia gali būti AI sugeneruota arba specialiai sukurta nuotrauka: Neringa ir Tadas kalantys geležinę širdį prie žaizdro)</i></p>
-
-    <h2>Su geležinėmis vestuvių metinėmis! ❤️</h2>
+    <h2>❤️ Sveikiname Neringa ir Tadas!</h2>
 </div>
 
 </div>
 
 <script>
-function next(cur, next) {
-    document.getElementById("step"+cur).classList.add("hidden");
-    document.getElementById("step"+next).classList.remove("hidden");
+let answers = {
+    1: [],
+    2: [],
+    3: []
+};
+
+function answer(stage, val){
+    answers[stage].push(val);
 }
 
-/* SOUND */
-function playStamp() {
-    document.getElementById("stampSound").play();
+function checkStage(stage){
+    let yes = answers[stage].filter(v=>v===1).length;
+
+    if(yes >= 3){
+        document.getElementById("stage"+stage).classList.add("hidden");
+
+        if(stage === 1) showStage(2);
+        else if(stage === 2) showStage(3);
+        else if(stage === 3) finish();
+    } else {
+        document.getElementById("stage"+stage).classList.add("hidden");
+        document.getElementById("fail").classList.remove("hidden");
+    }
+}
+
+function showStage(n){
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("fail").classList.add("hidden");
+
+    for(let i=1;i<=3;i++){
+        let el = document.getElementById("stage"+i);
+        if(el) el.classList.add("hidden");
+    }
+
+    document.getElementById("stage"+n).classList.remove("hidden");
+}
+
+function restart(){
+    answers = {1:[],2:[],3:[]};
+    showStage(1);
+}
+
+function finish(){
+    document.getElementById("stage3").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+    startConfetti();
 }
 
 /* CONFETTI */
@@ -203,28 +209,28 @@ canvas.height = window.innerHeight;
 
 let pieces = [];
 
-function startConfetti() {
-    for (let i = 0; i < 120; i++) {
+function startConfetti(){
+    for(let i=0;i<150;i++){
         pieces.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height - canvas.height,
-            r: Math.random() * 6 + 2,
-            d: Math.random() * 10 + 5,
-            color: `hsl(${Math.random()*360},100%,60%)`
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height-canvas.height,
+            r:Math.random()*6+2,
+            d:Math.random()*10+5,
+            color:`hsl(${Math.random()*360},100%,60%)`
         });
     }
-    drawConfetti();
+    draw();
 }
 
-function drawConfetti() {
+function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p => {
-        ctx.fillStyle = p.color;
-        ctx.fillRect(p.x, p.y, p.r, p.r);
+    pieces.forEach(p=>{
+        ctx.fillStyle=p.color;
+        ctx.fillRect(p.x,p.y,p.r,p.r);
         p.y += p.d;
-        if (p.y > canvas.height) p.y = -10;
+        if(p.y>canvas.height) p.y=-10;
     });
-    requestAnimationFrame(drawConfetti);
+    requestAnimationFrame(draw);
 }
 </script>
 
