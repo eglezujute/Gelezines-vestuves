@@ -191,16 +191,22 @@ function startTest(){
 
 function answer(stage,q,val,btn){
 
+    // išsaugom atsakymą
     answers[stage][q] = val;
 
-    let parent = btn.parentElement;
-    let buttons = parent.querySelectorAll("button");
+    // randam TIK to klausimo bloką
+    let questionBlock = btn.parentElement;
 
+    // gaunam tik to klausimo mygtukus
+    let buttons = questionBlock.querySelectorAll("button");
+
+    // NUIMAM tik tame klausime
     buttons.forEach(b=>{
         b.classList.remove("selected-yes","selected-no");
     });
 
-    if(val===1){
+    // uždedam naują pasirinkimą
+    if(val === 1){
         btn.classList.add("selected-yes");
     } else {
         btn.classList.add("selected-no");
