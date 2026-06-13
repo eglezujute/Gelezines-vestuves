@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geležinės vestuvės - Ekspertizė</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        overflow-x: hidden;
+    }
+
+    .card {
+        max-width: 850px;
+        width: 100%;
+        background: rgba(255,255,255,0.08);
+        padding: 35px;
+        border-radius: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    h1, h2 {
+        margin-top: 0;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 22px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: #f2c94c;
+        font-weight: bold;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    .hidden { display: none; }
+
+    .section { animation: fade .6s ease; }
+
+    @keyframes fade {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    ul {
+        text-align: left;
+        max-width: 600px;
+        margin: 20px auto;
+        line-height: 1.7;
+    }
+
+    img.photo {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 14px;
+        margin: 15px auto;
+        display: block;
+    }
+
+    .stamp {
+        font-size: 2rem;
+        color: #f2c94c;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+<audio id="stampSound" src="YOUR_AUDIO_FILE.mp3"></audio>
+
+<div class="card">
+
+<!-- STEP 1 -->
+<div id="step1" class="section">
+    <h1>🏗️ Santuokos ekspertizė</h1>
+    <p><strong>Objektas:</strong> Neringa + Tadas</p>
+    <p><strong>Ekspertizės Nr.:</strong> 2020-06-13</p>
+
+    <button onclick="next(1,2)">Pradėti</button>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="section hidden">
+    <h2>Pirminė apžiūra</h2>
+
+    <img class="photo" src="GOOGLE_DRIVE_IMAGE_1" alt="Foto 1">
+
+    <ul>
+        <li>✅ Konstrukcija stabili</li>
+        <li>✅ Mazgai neatsilaisvinę</li>
+        <li>✅ Humoras veikia</li>
+    </ul>
+
+    <button onclick="next(2,3)">Toliau</button>
+</div>
+
+<!-- STEP 3 -->
+<div id="step3" class="section hidden">
+    <h2>Atsparumo testai</h2>
+
+    <img class="photo" src="GOOGLE_DRIVE_IMAGE_2" alt="Foto 2">
+
+    <ul>
+        <li>☑ „Ką valgom?“ testas</li>
+        <li>☑ Kelionių testas</li>
+        <li>☑ Remonto testas</li>
+    </ul>
+
+    <button onclick="next(3,4)">Tęsti</button>
+</div>
+
+<!-- STEP 4 -->
+<div id="step4" class="section hidden">
+    <h2>Korozijos analizė</h2>
+
+    <img class="photo" src="GOOGLE_DRIVE_IMAGE_3" alt="Foto 3">
+
+    <ul>
+        <li>🙄 Akių vartymas</li>
+        <li>🚪 Durų „akcentai“</li>
+        <li>🤷 „man nesvarbu“ efektas</li>
+    </ul>
+
+    <button onclick="next(4,5)">Išvada</button>
+</div>
+
+<!-- STEP 5 -->
+<div id="step5" class="section hidden">
+    <h2>Galutinė išvada</h2>
+
+    <img class="photo" src="GOOGLE_DRIVE_IMAGE_4" alt="Foto 4">
+
+    <div class="stamp">GELEŽINĖ SANTUOKA</div>
+
+    <button onclick="next(5,6); playStamp(); startConfetti();">
+        Finalas
+    </button>
+</div>
+
+<!-- STEP 6 -->
+<div id="step6" class="section hidden">
+    <h1>❤️ Sveikiname</h1>
+
+    <p>
+        Kai kurios konstrukcijos laikui bėgant silpsta.
+        Jūsų – stiprėja.
+    </p>
+
+    <h2>🔥 Specialus momentas</h2>
+
+    <p>Jūs abu, kuriantys savo geležinę širdį:</p>
+
+    <!-- AI / generuojamos foto vieta -->
+    <img class="photo" src="YOUR_GENERATED_IMAGE_HERE" alt="Geležinė širdis">
+
+    <p><i>(čia gali būti AI sugeneruota arba specialiai sukurta nuotrauka: Neringa ir Tadas kalantys geležinę širdį prie žaizdro)</i></p>
+
+    <h2>Su geležinėmis vestuvių metinėmis! ❤️</h2>
+</div>
+
+</div>
+
+<script>
+function next(cur, next) {
+    document.getElementById("step"+cur).classList.add("hidden");
+    document.getElementById("step"+next).classList.remove("hidden");
+}
+
+/* SOUND */
+function playStamp() {
+    document.getElementById("stampSound").play();
+}
+
+/* CONFETTI */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let pieces = [];
+
+function startConfetti() {
+    for (let i = 0; i < 120; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            r: Math.random() * 6 + 2,
+            d: Math.random() * 10 + 5,
+            color: `hsl(${Math.random()*360},100%,60%)`
+        });
+    }
+    drawConfetti();
+}
+
+function drawConfetti() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.r, p.r);
+        p.y += p.d;
+        if (p.y > canvas.height) p.y = -10;
+    });
+    requestAnimationFrame(drawConfetti);
+}
+</script>
+
+</body>
+</html>
