@@ -27,9 +27,16 @@ body {
     text-align:center;
 }
 
+.hidden { display:none; }
+
+.question {
+    margin:20px 0;
+    font-size:18px;
+}
+
 button {
-    margin:10px;
-    padding:10px 18px;
+    margin:8px;
+    padding:10px 16px;
     border:none;
     border-radius:10px;
     cursor:pointer;
@@ -38,19 +45,19 @@ button {
 
 .yes { background:#2ecc71; color:white; }
 .no { background:#e74c3c; color:white; }
-.next { background:#f2c94c; }
-
-.hidden { display:none; }
-
-.question {
-    margin:20px 0;
-    font-size:18px;
-}
+.next { background:#f2c94c; color:black; }
 
 .warn {
     color:#f2c94c;
     font-size:20px;
     margin:20px 0;
+}
+
+img {
+    width:100%;
+    max-width:500px;
+    border-radius:12px;
+    margin-top:15px;
 }
 
 canvas {
@@ -72,14 +79,14 @@ canvas {
 <div id="start">
     <h1>🏗️ GELEŽINĖS SANTUOKOS TESTAS</h1>
     <p>Neringa + Tadas</p>
-    <button class="next" onclick="showStage(1)">Pradėti testą</button>
+    <button class="next" onclick="showStage(1)">Pradėti</button>
 </div>
 
-<!-- RESULT FAIL -->
+<!-- FAIL -->
 <div id="fail" class="hidden">
     <h2 class="warn">⚠️ WOW WOW WOW… kažką sumaišėt</h2>
-    <p>Reikia papildomo „kyšio“ ir pakartoti patikrą 😄</p>
-    <button class="next" onclick="restart()">Pasižadame duoti vienas kitam po 10 € ir galime kartoti patikrą</button>
+    <p>Reikia „kyšio“ ir bandome dar kartą 😄</p>
+    <button class="next" onclick="restart()">Kartoti etapą</button>
 </div>
 
 <!-- STAGE 1 -->
@@ -87,56 +94,56 @@ canvas {
     <h2>1 ETAPAS – MEILĖ IR BUITIS</h2>
 
     <div class="question">Ar mylit vienas kitą?</div>
-    <button class="yes" onclick="answer(1,1)">TAIP</button>
-    <button class="no" onclick="answer(1,0)">NE</button>
+    <button class="yes" onclick="answer(1,'q1',1,this)">TAIP</button>
+    <button class="no" onclick="answer(1,'q1',0,this)">NE</button>
 
     <div class="question">Ar kartais norite vienas kitam užvožti keptuve?</div>
-    <button class="yes" onclick="answer(1,1)">TAIP</button>
-    <button class="no" onclick="answer(1,0)">NE</button>
+    <button class="yes" onclick="answer(1,'q2',1,this)">TAIP</button>
+    <button class="no" onclick="answer(1,'q2',0,this)">NE</button>
 
-    <div class="question">Ar rūpinatės vienas kitu?</div>
-    <button class="yes" onclick="answer(1,1)">TAIP</button>
-    <button class="no" onclick="answer(1,0)">NE</button>
+    <div class="question">Ar vis tiek kartu valgote vakarienę?</div>
+    <button class="yes" onclick="answer(1,'q3',1,this)">TAIP</button>
+    <button class="no" onclick="answer(1,'q3',0,this)">NE</button>
 
-    <button class="next" onclick="checkStage(1)">Tikrinti</button>
+    <button class="next" onclick="check(1)">Tikrinti</button>
 </div>
 
 <!-- STAGE 2 -->
 <div id="stage2" class="hidden">
     <h2>2 ETAPAS – PAŽADAI</h2>
 
-    <div class="question">Pasižadu keliauti su tavimi iki pasaulio krašto</div>
-    <button class="yes" onclick="answer(2,1)">TAIP</button>
-    <button class="no" onclick="answer(2,0)">NE</button>
+    <div class="question">Pasižadu keliauti su tavimi iki pasaulio krašto?</div>
+    <button class="yes" onclick="answer(2,'q1',1,this)">TAIP</button>
+    <button class="no" onclick="answer(2,'q1',0,this)">NE</button>
 
-    <div class="question">Pasižadu kartą per mėnesį nupirkti tavo mėgstamą gėrimą</div>
-    <button class="yes" onclick="answer(2,1)">TAIP</button>
-    <button class="no" onclick="answer(2,0)">NE</button>
+    <div class="question">Pasižadu pirkti tavo mėgstamą gėrimą?</div>
+    <button class="yes" onclick="answer(2,'q2',1,this)">TAIP</button>
+    <button class="no" onclick="answer(2,'q2',0,this)">NE</button>
 
-    <div class="question">Pasižadu apsimesti, kad klausausi, kai kalbi apie serialus/automobilius</div>
-    <button class="yes" onclick="answer(2,1)">TAIP</button>
-    <button class="no" onclick="answer(2,0)">NE</button>
+    <div class="question">Pasižadu apsimesti, kad klausausi serialų siužeto?</div>
+    <button class="yes" onclick="answer(2,'q3',1,this)">TAIP</button>
+    <button class="no" onclick="answer(2,'q3',0,this)">NE</button>
 
-    <button class="next" onclick="checkStage(2)">Tikrinti</button>
+    <button class="next" onclick="check(2)">Tikrinti</button>
 </div>
 
 <!-- STAGE 3 -->
 <div id="stage3" class="hidden">
     <h2>3 ETAPAS – GELEŽIES TESTAS</h2>
 
-    <div class="question">Ar galite kartu išgyventi IKEA kelionę?</div>
-    <button class="yes" onclick="answer(3,1)">TAIP</button>
-    <button class="no" onclick="answer(3,0)">NE</button>
+    <div class="question">Ar išgyvenate IKEA be skyrybų?</div>
+    <button class="yes" onclick="answer(3,'q1',1,this)">TAIP</button>
+    <button class="no" onclick="answer(3,'q1',0,this)">NE</button>
 
-    <div class="question">Ar galite kartu išsirinkti filmą per mažiau nei 10 min?</div>
-    <button class="yes" onclick="answer(3,1)">TAIP</button>
-    <button class="no" onclick="answer(3,0)">NE</button>
+    <div class="question">Ar pasirenkate filmą per < 30 min?</div>
+    <button class="yes" onclick="answer(3,'q2',1,this)">TAIP</button>
+    <button class="no" onclick="answer(3,'q2',0,this)">NE</button>
 
-    <div class="question">Ar galite prie draugų / šeimos apsimesti kad viskas gerai, nors ką tik norėjote vienas kitą truputėlį prismaugti?</div>
-    <button class="yes" onclick="answer(3,1)">TAIP</button>
-    <button class="no" onclick="answer(3,0)">NE</button>
+    <div class="question">Ar vis tiek einate miegoti kartu?</div>
+    <button class="yes" onclick="answer(3,'q3',1,this)">TAIP</button>
+    <button class="no" onclick="answer(3,'q3',0,this)">NE</button>
 
-    <button class="next" onclick="finish()">Tikrinti testą</button>
+    <button class="next" onclick="check(3)">Pabaigti</button>
 </div>
 
 <!-- FINAL -->
@@ -145,40 +152,55 @@ canvas {
 
     <p>Testas sėkmingai įveiktas.</p>
 
-    <img src="https://cdn.corenexis.com/f/KtLbPXdoMwX.jpeg" style="width:100%;border-radius:15px;">
+    <img src="https://cdn.corenexis.com/f/YlnsU1ApBlZ.jpg">
 
-    <h2>❤️ Sveikiname jus, Neringa ir Tadai, su geležinėmis vestuvių metinėmis ir linkime, kad visi buvę išbandymai taptų nukaltomis gyvenimo pasagomis, kurios toliau neštų tik sėkmę ir meilę Jums!</h2>
+    <h2>❤️ Sveikiname Neringa ir Tadas!</h2>
 </div>
 
 </div>
 
 <script>
+
 let answers = {
-    1: [],
-    2: [],
-    3: []
+    1:{},
+    2:{},
+    3:{}
 };
 
-function answer(stage, val){
-    answers[stage].push(val);
+function answer(stage,q,val,btn){
+    answers[stage][q] = val;
+
+    let parent = btn.parentElement;
+    let buttons = parent.querySelectorAll("button");
+
+    buttons.forEach(b=>b.style.opacity="0.5");
+    btn.style.opacity="1";
 }
 
-function checkStage(stage){
-    let yes = answers[stage].filter(v=>v===1).length;
+function check(stage){
+    let data = answers[stage];
+    let keys = Object.keys(data);
+
+    if(keys.length < 3){
+        alert("Atsakykite į visus klausimus 😄");
+        return;
+    }
+
+    let yes = Object.values(data).filter(v=>v===1).length;
 
     if(yes >= 3){
         document.getElementById("stage"+stage).classList.add("hidden");
 
-        if(stage === 1) showStage(2);
-        else if(stage === 2) showStage(3);
-        else if(stage === 3) finish();
+        if(stage === 1) show(2);
+        else if(stage === 2) show(3);
+        else finish();
     } else {
         document.getElementById("stage"+stage).classList.add("hidden");
         document.getElementById("fail").classList.remove("hidden");
     }
 }
 
-function showStage(n){
+function show(n){
     document.getElementById("start").classList.add("hidden");
     document.getElementById("fail").classList.add("hidden");
 
@@ -191,8 +213,8 @@ function showStage(n){
 }
 
 function restart(){
-    answers = {1:[],2:[],3:[]};
-    showStage(1);
+    answers = {1:{},2:{},3:{}};
+    show(1);
 }
 
 function finish(){
@@ -207,7 +229,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let pieces = [];
+let pieces=[];
 
 function startConfetti(){
     for(let i=0;i<150;i++){
@@ -227,11 +249,12 @@ function draw(){
     pieces.forEach(p=>{
         ctx.fillStyle=p.color;
         ctx.fillRect(p.x,p.y,p.r,p.r);
-        p.y += p.d;
-        if(p.y>canvas.height) p.y=-10;
+        p.y+=p.d;
+        if(p.y>canvas.height)p.y=-10;
     });
     requestAnimationFrame(draw);
 }
+
 </script>
 
 </body>
