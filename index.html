@@ -109,16 +109,16 @@ img{
     <h2>1 ETAPAS</h2>
 
     <div class="question">Ar mylit vienas kitą?</div>
-    <button class="yes" onclick="answer(1,'q1',1,this)">TAIP</button>
-    <button class="no" onclick="answer(1,'q1',0,this)">NE</button>
+    <button class="yes" onclick="answer(1,'q1',1)">TAIP</button>
+    <button class="no" onclick="answer(1,'q1',0)">NE</button>
 
     <div class="question">Ar kartais pykstatės?</div>
-    <button class="yes" onclick="answer(1,'q2',1,this)">TAIP</button>
-    <button class="no" onclick="answer(1,'q2',0,this)">NE</button>
+    <button class="yes" onclick="answer(1,'q2',1)">TAIP</button>
+    <button class="no" onclick="answer(1,'q2',0)">NE</button>
 
     <div class="question">Ar vis tiek esate kartu?</div>
-    <button class="yes" onclick="answer(1,'q3',1,this)">TAIP</button>
-    <button class="no" onclick="answer(1,'q3',0,this)">NE</button>
+    <button class="yes" onclick="answer(1,'q3',1)">TAIP</button>
+    <button class="no" onclick="answer(1,'q3',0)">NE</button>
 
     <button class="next" onclick="check(1)">Tikrinti</button>
 </div>
@@ -128,16 +128,16 @@ img{
     <h2>2 ETAPAS</h2>
 
     <div class="question">Ar keliaujate kartu?</div>
-    <button class="yes" onclick="answer(2,'q1',1,this)">TAIP</button>
-    <button class="no" onclick="answer(2,'q1',0,this)">NE</button>
+    <button class="yes" onclick="answer(2,'q1',1)">TAIP</button>
+    <button class="no" onclick="answer(2,'q1',0)">NE</button>
 
     <div class="question">Ar perkate dovanas?</div>
-    <button class="yes" onclick="answer(2,'q2',1,this)">TAIP</button>
-    <button class="no" onclick="answer(2,'q2',0,this)">NE</button>
+    <button class="yes" onclick="answer(2,'q2',1)">TAIP</button>
+    <button class="no" onclick="answer(2,'q2',0)">NE</button>
 
     <div class="question">Ar klausotės vienas kito?</div>
-    <button class="yes" onclick="answer(2,'q3',1,this)">TAIP</button>
-    <button class="no" onclick="answer(2,'q3',0,this)">NE</button>
+    <button class="yes" onclick="answer(2,'q3',1)">TAIP</button>
+    <button class="no" onclick="answer(2,'q3',0)">NE</button>
 
     <button class="next" onclick="check(2)">Tikrinti</button>
 </div>
@@ -147,16 +147,16 @@ img{
     <h2>3 ETAPAS</h2>
 
     <div class="question">Ar išgyvenate IKEA?</div>
-    <button class="yes" onclick="answer(3,'q1',1,this)">TAIP</button>
-    <button class="no" onclick="answer(3,'q1',0,this)">NE</button>
+    <button class="yes" onclick="answer(3,'q1',1)">TAIP</button>
+    <button class="no" onclick="answer(3,'q1',0)">NE</button>
 
     <div class="question">Ar greitai pasirenkate filmą?</div>
-    <button class="yes" onclick="answer(3,'q2',1,this)">TAIP</button>
-    <button class="no" onclick="answer(3,'q2',0,this)">NE</button>
+    <button class="yes" onclick="answer(3,'q2',1)">TAIP</button>
+    <button class="no" onclick="answer(3,'q2',0)">NE</button>
 
     <div class="question">Ar einate miegoti kartu?</div>
-    <button class="yes" onclick="answer(3,'q3',1,this)">TAIP</button>
-    <button class="no" onclick="answer(3,'q3',0,this)">NE</button>
+    <button class="yes" onclick="answer(3,'q3',1)">TAIP</button>
+    <button class="no" onclick="answer(3,'q3',0)">NE</button>
 
     <button class="next" onclick="check(3)">PABAIGA</button>
 </div>
@@ -193,22 +193,43 @@ function startTest(){
     document.getElementById("stage1").classList.remove("hidden");
 }
 
-function answer(stage,q,val,btn){
+function answer(stage, q, val){
 
+    // 1. saugom state
     answers[stage][q] = val;
 
-    let parent = btn.parentElement;
-    let buttons = parent.querySelectorAll("button");
+    // 2. randam VISUS klausimus tame stage
+    const stageBlock = document.getElementById("stage"+stage);
 
-    buttons.forEach(b=>{
-        b.classList.remove("selected-yes","selected-no");
+    const questions = stageBlock.querySelectorAll(".question");
+
+    // 3. PERDRAW kiekvieną klausimą pagal state
+    questions.forEach((questionEl, index) => {
+
+        const key = "q" + (index + 1);
+
+        const buttons = questionEl.parentElement.querySelectorAll("button");
+
+        // jei šitas klausimas turi state
+        if (answers[stage][key] !== undefined) {
+
+            buttons.forEach(btn => {
+
+                btn.classList.remove("selected-yes", "selected-no");
+
+                if (btn.onclick.toString().includes(`'${key}'`)) {
+
+                    if (answers[stage][key] === 1 && btn.textContent === "TAIP") {
+                        btn.classList.add("selected-yes");
+                    }
+
+                    if (answers[stage][key] === 0 && btn.textContent === "NE") {
+                        btn.classList.add("selected-no");
+                    }
+                }
+            });
+        }
     });
-
-    if(val===1){
-        btn.classList.add("selected-yes");
-    } else {
-        btn.classList.add("selected-no");
-    }
 }
 
 function check(stage){
