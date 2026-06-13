@@ -36,38 +36,39 @@ h1,h2{margin-top:0;}
     font-size:18px;
 }
 
-/* BUTTONS */
+/* BUTTON BASE */
 button{
     margin:6px;
     padding:10px 16px;
     border-radius:10px;
     cursor:pointer;
     font-weight:bold;
-    border:2px solid transparent;
     transition:0.2s;
-    background:white;
-    color:black;
+    border:2px solid transparent;
 }
 
-/* YES / NO default */
+/* DEFAULT (balti su rėmeliu) */
 .yes,.no{
-    background:white;
+    background:white !important;
+    color:black !important;
+    border:2px solid #ccc;
 }
 
-/* SELECTED STATES (LABAI STABILŪS) */
+/* SELECTED YES */
 .selected-yes{
     background:#2ecc71 !important;
     color:white !important;
     border-color:#2ecc71 !important;
 }
 
+/* SELECTED NO */
 .selected-no{
     background:#e74c3c !important;
     color:white !important;
     border-color:#e74c3c !important;
 }
 
-/* tikrinti mygtukas */
+/* TIKRINTI */
 .next{
     display:block;
     margin:25px auto 0 auto;
@@ -76,7 +77,7 @@ button{
     border:none;
 }
 
-/* fail */
+/* FAIL */
 .warn{
     color:#f2c94c;
     font-size:20px;
@@ -164,7 +165,10 @@ img{
 <div id="fail" class="hidden">
     <h2 class="warn">⚠️ WOW WOW WOW</h2>
     <p>Nepavyko 😄</p>
-    <button class="next" onclick="restart()">Kartoti</button>
+
+    <button class="next" onclick="restartStage(currentStage)">
+        Kartoti etapą
+    </button>
 </div>
 
 <!-- FINAL -->
@@ -182,6 +186,7 @@ img{
 <script>
 
 let answers = {1:{},2:{},3:{}};
+let currentStage = 1;
 
 function startTest(){
     document.getElementById("start").classList.add("hidden");
@@ -195,12 +200,10 @@ function answer(stage,q,val,btn){
     let parent = btn.parentElement;
     let buttons = parent.querySelectorAll("button");
 
-    // NUIMAM tik tame klausime
     buttons.forEach(b=>{
         b.classList.remove("selected-yes","selected-no");
     });
 
-    // UŽDEDAM TIK PASPAUSTAM
     if(val===1){
         btn.classList.add("selected-yes");
     } else {
@@ -209,6 +212,8 @@ function answer(stage,q,val,btn){
 }
 
 function check(stage){
+
+    currentStage = stage;
 
     let data = answers[stage];
 
@@ -225,9 +230,13 @@ function check(stage){
 
         if(stage===1){
             document.getElementById("stage2").classList.remove("hidden");
-        } else if(stage===2){
+            currentStage = 2;
+        }
+        else if(stage===2){
             document.getElementById("stage3").classList.remove("hidden");
-        } else {
+            currentStage = 3;
+        }
+        else{
             document.getElementById("final").classList.remove("hidden");
         }
 
@@ -237,10 +246,20 @@ function check(stage){
     }
 }
 
-function restart(){
-    answers={1:{},2:{},3:{}};
+function restartStage(stage){
+
+    answers[stage] = {};
+
     document.getElementById("fail").classList.add("hidden");
-    document.getElementById("stage1").classList.remove("hidden");
+    document.getElementById("stage"+stage).classList.remove("hidden");
+
+    let buttons = document
+        .getElementById("stage"+stage)
+        .querySelectorAll("button");
+
+    buttons.forEach(b=>{
+        b.classList.remove("selected-yes","selected-no");
+    });
 }
 
 </script>
