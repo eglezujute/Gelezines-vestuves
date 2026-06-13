@@ -36,7 +36,7 @@ h1,h2{margin-top:0;}
     font-size:18px;
 }
 
-/* BUTTON BASE */
+/* BUTTONS */
 button{
     margin:6px;
     padding:10px 16px;
@@ -45,31 +45,29 @@ button{
     font-weight:bold;
     border:2px solid transparent;
     transition:0.2s;
-}
-
-/* DEFAULT (balti su apvadu) */
-.yes, .no{
     background:white;
     color:black;
 }
 
-/* SELECTED YES */
+/* YES / NO default */
+.yes,.no{
+    background:white;
+}
+
+/* SELECTED STATES (LABAI STABILŪS) */
 .selected-yes{
     background:#2ecc71 !important;
     color:white !important;
-    border-color:#2ecc71;
-    transform:scale(1.05);
+    border-color:#2ecc71 !important;
 }
 
-/* SELECTED NO */
 .selected-no{
     background:#e74c3c !important;
     color:white !important;
-    border-color:#e74c3c;
-    transform:scale(1.05);
+    border-color:#e74c3c !important;
 }
 
-/* TIKRINTI MYGTUKAS – VISADA NAUJOJE EILUTĖJE */
+/* tikrinti mygtukas */
 .next{
     display:block;
     margin:25px auto 0 auto;
@@ -78,6 +76,7 @@ button{
     border:none;
 }
 
+/* fail */
 .warn{
     color:#f2c94c;
     font-size:20px;
@@ -116,7 +115,7 @@ img{
     <button class="yes" onclick="answer(1,'q2',1,this)">TAIP</button>
     <button class="no" onclick="answer(1,'q2',0,this)">NE</button>
 
-    <div class="question">Ar vis tiek gyvenat kartu?</div>
+    <div class="question">Ar vis tiek esate kartu?</div>
     <button class="yes" onclick="answer(1,'q3',1,this)">TAIP</button>
     <button class="no" onclick="answer(1,'q3',0,this)">NE</button>
 
@@ -150,7 +149,7 @@ img{
     <button class="yes" onclick="answer(3,'q1',1,this)">TAIP</button>
     <button class="no" onclick="answer(3,'q1',0,this)">NE</button>
 
-    <div class="question">Ar pasirenkate filmą greitai?</div>
+    <div class="question">Ar greitai pasirenkate filmą?</div>
     <button class="yes" onclick="answer(3,'q2',1,this)">TAIP</button>
     <button class="no" onclick="answer(3,'q2',0,this)">NE</button>
 
@@ -191,22 +190,18 @@ function startTest(){
 
 function answer(stage,q,val,btn){
 
-    // išsaugom atsakymą
     answers[stage][q] = val;
 
-    // randam TIK to klausimo bloką
-    let questionBlock = btn.parentElement;
-
-    // gaunam tik to klausimo mygtukus
-    let buttons = questionBlock.querySelectorAll("button");
+    let parent = btn.parentElement;
+    let buttons = parent.querySelectorAll("button");
 
     // NUIMAM tik tame klausime
     buttons.forEach(b=>{
         b.classList.remove("selected-yes","selected-no");
     });
 
-    // uždedam naują pasirinkimą
-    if(val === 1){
+    // UŽDEDAM TIK PASPAUSTAM
+    if(val===1){
         btn.classList.add("selected-yes");
     } else {
         btn.classList.add("selected-no");
@@ -214,6 +209,7 @@ function answer(stage,q,val,btn){
 }
 
 function check(stage){
+
     let data = answers[stage];
 
     if(Object.keys(data).length < 3){
@@ -224,6 +220,7 @@ function check(stage){
     let yes = Object.values(data).filter(v=>v===1).length;
 
     if(yes>=3){
+
         document.getElementById("stage"+stage).classList.add("hidden");
 
         if(stage===1){
@@ -233,6 +230,7 @@ function check(stage){
         } else {
             document.getElementById("final").classList.remove("hidden");
         }
+
     } else {
         document.getElementById("stage"+stage).classList.add("hidden");
         document.getElementById("fail").classList.remove("hidden");
